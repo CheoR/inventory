@@ -50,9 +50,8 @@ data class ItemDetails(
 )
 
 /**
- * Extension function to convert [ItemDetails] to [Item]. If [ItemDetails.price] value is not
- * valid [Double], then set price to 0.0. If [ItemDetails.quantity] value not valid [Int], set
- * quantity to 0
+ * Extension function to convert [ItemDetails] to [Item]. If [ItemDetails.price] value not valid
+ * [Double], set price to 0.0. If [ItemDetails.quantity] value not valid [Int], set quantity to 0
  */
 fun ItemDetails.toItem(): Item = Item(
     id = id,

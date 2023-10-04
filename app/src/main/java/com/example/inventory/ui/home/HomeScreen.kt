@@ -54,6 +54,8 @@ fun HomeScreen(
     navigateToItemUpdate: (Int) -> Unit,
     modifier: Modifier = Modifier
 ) {
+    // enterAlwaysScrollBehavior - top app bar set up with this TopAppBarScrollBehavior immediately
+    // collapse when content is pulled up, and immediately appear when content pulled down.
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
 
     Scaffold(

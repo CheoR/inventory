@@ -20,6 +20,12 @@ object AppViewModelProvider {
         // Initializer for ItemEditViewModel
         initializer {
             ItemEditViewModel(
+                // To create new SavedStateHandle instance
+                // A SavedStateHandle handle to saved state passed down to
+                // androidx.lifecycle.ViewModel. Use SavedStateViewModelFactory to receive this
+                // object in ViewModel's constructor.
+                // This is key-value map that lets you write and retrieve objects to and from saved
+                // state. These values persist after system kills process and remain available via same object.
                 this.createSavedStateHandle()
             )
         }
@@ -43,8 +49,7 @@ object AppViewModelProvider {
 }
 
 /**
- * Extension function to queries for [Application] object and returns an instance of
- * [InventoryApplication].
+ * Extension function queries for [Application] object and returns [InventoryApplication] instance.
  */
 fun CreationExtras.inventoryApplication(): InventoryApplication =
     (this[ViewModelProvider.AndroidViewModelFactory.APPLICATION_KEY] as InventoryApplication)

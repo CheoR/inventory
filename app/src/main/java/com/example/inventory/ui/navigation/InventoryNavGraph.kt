@@ -17,7 +17,7 @@ import com.example.inventory.ui.item.ItemEntryDestination
 import com.example.inventory.ui.item.ItemEntryScreen
 
 /**
- * Provides Navigation graph for the application.
+ * Provides application Navigation graph.
  */
 @Composable
 fun InventoryNavHost(
@@ -45,6 +45,9 @@ fun InventoryNavHost(
         }
         composable(
             route = ItemDetailsDestination.routeWithArgs,
+            // By default, all arguments parsed as strings. composable() arguments parameter
+            // accepts NamedNavArguments list. Quickly create NamedNavArgument using navArgument
+            // method then specify its exact type.
             arguments = listOf(navArgument(ItemDetailsDestination.itemIdArg) {
                 type = NavType.IntType
             })
