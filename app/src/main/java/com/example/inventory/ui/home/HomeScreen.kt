@@ -23,6 +23,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
@@ -31,12 +32,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.inventory.InventoryTopAppBar
 import com.example.inventory.R
 import com.example.inventory.data.Item
+import com.example.inventory.ui.AppViewModelProvider
 import com.example.inventory.ui.item.formatedPrice
 import com.example.inventory.ui.navigation.NavigationDestination
 import com.example.inventory.ui.theme.InventoryTheme
+import androidx.compose.runtime.getValue
 
 object HomeDestination : NavigationDestination {
     override val route = "home"
@@ -52,11 +56,16 @@ object HomeDestination : NavigationDestination {
 fun HomeScreen(
     navigateToItemEntry: () -> Unit,
     navigateToItemUpdate: (Int) -> Unit,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel = viewModel(factory = AppViewModelProvider.Factory)
 ) {
     // enterAlwaysScrollBehavior - top app bar set up with this TopAppBarScrollBehavior immediately
     // collapse when content is pulled up, and immediately appear when content pulled down.
     val scrollBehavior = TopAppBarDefaults.enterAlwaysScrollBehavior()
+
+    // collect UI state from HomeViewModel
+    // collectAsState() - collect values from this StateFlow and represents its latest value via State.
+    val homeUiState by viewModel.homeUiState.collectAsState()
 
     Scaffold(
         modifier = modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
@@ -81,7 +90,7 @@ fun HomeScreen(
         },
     ) { innerPadding ->
         HomeBody(
-            itemList = listOf(),
+            itemList =  homeUiState.itemList,
             onItemClick = navigateToItemUpdate,
             modifier = Modifier
                 .padding(innerPadding)
