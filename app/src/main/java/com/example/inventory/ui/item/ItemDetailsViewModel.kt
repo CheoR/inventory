@@ -44,6 +44,11 @@ class ItemDetailsViewModel(
         }
     }
 
+    suspend fun deleteItem() {
+        // convert uiState from itemDetails type to Item entity type
+        itemsRepository.deleteItem(uiState.value.itemDetails.toItem())
+    }
+
     companion object {
         private const val TIMEOUT_MILLIS = 5_000L
     }
