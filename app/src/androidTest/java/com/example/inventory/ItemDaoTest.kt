@@ -2,7 +2,6 @@ package com.example.inventory
 
 
 import android.content.Context
-import android.util.Log
 import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
@@ -72,8 +71,7 @@ class ItemDaoTest {
         // type is val allItems: Flow<List<Item>>
         // .first() turns flow into list.
         val allItems = itemDao.getAllItems().first()
-        Log.d("Items","all Items")
-        Log.d("list items", allItems.toString())
+
         assertEquals(allItems[0], item1)
         assertEquals(allItems[1], item2)
     }
@@ -104,4 +102,15 @@ class ItemDaoTest {
 
         assertTrue(allItems.isEmpty())
     }
+
+    @Test
+    @Throws(Exception::class)
+    fun daoGetItem_returnsItemFromDB() = runBlocking {
+        addOneItemToDb()
+        // return flow
+        val item = itemDao.getItem(1)
+        // .first() - actual item
+        assertEquals(item.first(), item1)
+    }
+
 }
