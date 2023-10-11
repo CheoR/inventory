@@ -26,7 +26,8 @@ object AppViewModelProvider {
                 // object in ViewModel's constructor.
                 // This is key-value map that lets you write and retrieve objects to and from saved
                 // state. These values persist after system kills process and remain available via same object.
-                this.createSavedStateHandle()
+                this.createSavedStateHandle(),
+                inventoryApplication().container.itemsRepository
             )
         }
         // Initializer for ItemEntryViewModel
