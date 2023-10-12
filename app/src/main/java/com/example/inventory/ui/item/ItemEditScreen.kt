@@ -47,6 +47,10 @@ fun ItemEditScreen(
             itemUiState = viewModel.itemUiState,
             onItemValueChange = viewModel::updateUiState,
             onSaveClick = {
+                // Note: If user rotates screen very fast, operation may get cancelled
+                // and item may not save in DB because when config change occurs, Activity will be
+                // recreated and rememberCoroutineScope will
+                // be cancelled - since scope is bound to composition.
                 coroutineScope.launch {
                     viewModel.updateItem()
                     navigateBack()

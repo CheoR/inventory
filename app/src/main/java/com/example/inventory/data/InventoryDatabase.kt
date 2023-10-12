@@ -39,6 +39,11 @@ abstract class InventoryDatabase : RoomDatabase() {
             return Instance ?: synchronized(this) {
                 Room
                     .databaseBuilder(context, InventoryDatabase::class.java, "item_database")
+                    /**
+                     * Setting option in app's database builder means that Room
+                     * permanently deletes all data from database tables when it
+                     * attempts to perform a migration with no defined migration path.
+                     */
                     // required migration strategy
                     .fallbackToDestructiveMigration()
                     .build()

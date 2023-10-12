@@ -44,6 +44,9 @@ class ItemDetailsViewModel(
         }
     }
 
+    /**
+     * Deletes the item from the [ItemsRepository]'s data source.
+     */
     suspend fun deleteItem() {
         // convert uiState from itemDetails type to Item entity type
         itemsRepository.deleteItem(uiState.value.itemDetails.toItem())

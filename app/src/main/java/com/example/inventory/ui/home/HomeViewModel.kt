@@ -17,6 +17,10 @@ import kotlinx.coroutines.flow.stateIn
 class HomeViewModel(itemsRepository: ItemsRepository): ViewModel() {
     // retrieve all items in Room database as StateFlow observable API for UI state.
     // When Room Inventory data changes, UI updates automatically.
+    /**
+     * Holds home ui state. The list of items are retrieved from [ItemsRepository] and mapped to
+     * [HomeUiState]
+     */
     val homeUiState: StateFlow<HomeUiState> =
         // constantly updadating state
         itemsRepository.getAllItemsStream().map { HomeUiState(it) }
