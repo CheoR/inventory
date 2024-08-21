@@ -26,6 +26,7 @@ class ItemEntryViewModel(private val itemsRepository: ItemsRepository) : ViewMod
     fun updateUiState(itemDetails: ItemDetails) {
         itemUiState =
             ItemUiState(itemDetails = itemDetails, isEntryValid = validateInput(itemDetails))
+        println("itemUiState  itemDetails updated: ${itemUiState.itemDetails}")
     }
 
     private fun validateInput(uiState: ItemDetails = itemUiState.itemDetails): Boolean {

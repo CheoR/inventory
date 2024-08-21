@@ -41,6 +41,7 @@ import com.example.inventory.ui.item.formatedPrice
 import com.example.inventory.ui.navigation.NavigationDestination
 import com.example.inventory.ui.theme.InventoryTheme
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.platform.testTag
 
 object HomeDestination : NavigationDestination {
     override val route = "home"
@@ -80,7 +81,9 @@ fun HomeScreen(
             FloatingActionButton(
                 onClick = navigateToItemEntry,
                 shape = MaterialTheme.shapes.medium,
-                modifier = Modifier.padding(dimensionResource(id = R.dimen.padding_large))
+                modifier = Modifier
+                    .padding(dimensionResource(id = R.dimen.padding_large))
+                    .testTag("fab")
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
@@ -103,13 +106,15 @@ fun HomeScreen(
 private fun HomeBody(
     itemList: List<Item>, onItemClick: (Int) -> Unit, modifier: Modifier = Modifier
 ) {
+    println("HomeBody: ${itemList.size}")
+
     Column(
         horizontalAlignment = Alignment.CenterHorizontally,
         modifier = modifier
     ) {
         if (itemList.isEmpty()) {
             Text(
-                text = stringResource(R.string.no_item_description),
+                text = "moo", // stringResource(R.string.no_item_description),
                 textAlign = TextAlign.Center,
                 style = MaterialTheme.typography.titleLarge
             )
@@ -127,7 +132,11 @@ private fun HomeBody(
 private fun InventoryList(
     itemList: List<Item>, onItemClick: (Item) -> Unit, modifier: Modifier = Modifier
 ) {
-    LazyColumn(modifier = modifier) {
+    println("InventoryList: ${itemList.size}")
+    LazyColumn(
+        modifier = modifier
+            .testTag("inventory_list")
+    ) {
         items(items = itemList, key = { it.id }) { item ->
             InventoryItem(item = item,
                 modifier = Modifier
